@@ -7,7 +7,7 @@ from threading import Thread
 
 #Definição das variáveis do socket
 ServerSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-Host = 'localhost'
+Host = '26.196.148.132'
 Port = 5001 
 
 #Inicia o servidor
