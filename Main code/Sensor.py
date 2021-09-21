@@ -4,7 +4,7 @@ import random
 
 #Definição das variáveis do socket
 ClientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = 'localhost'
+host = '26.196.148.132'
 port = 5001
 
 #Tentativa de conexão no servidor
