@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Importação do arquivo css -->
+    <link rel="stylesheet" href="/static/style.css">
+    
+    <!-- Função que atualiza a página periodicamente -->
+    <meta http-equiv="refresh" content="8">
+    
+    <title>Sistema de monitoramento</title>
+</head>
+<body>
+    <table class="table">
+        <tr class="row">
+            <th class="header">Nome</th>
+            <th class="header">Oxigenação do sangue</th>
+            <th class="header">Status</th>
+        </tr>
+
+            <!-- Loop que organiza os pacientes exibidos -->
+            {% for patient in Patients|sort(attribute='i', reverse = True) %}
+
+            <tr class="row">
+                <td class="cell">{{patient.name}}</td>
+                <td class="cell">{{patient.OS}}%</td>
+
+                <!-- If para formatação do texto -->
+                {% if patient.state == True %}  
+                    <td class="cell"> Estado grave </td>
+                {% else %}
+                    <td class="cell"> Normal </td>
+                {% endif %}
+
+            </tr>
+
+            <!-- Fim do loop -->
+            {% endfor %}
+
+        <tr>
+        </tr>
+      </table>
+
+      <div class="wrapper">
+          <div class="menu">
+              <select id="name">
+                {% for patient in Patients %}
+                    <option value='{{patient.id}}'>{{patient.name}}</option>
+                {% endfor %}
+              </select>
+          </div>
+        <div class="content">
+
+            <!-- Loop que organiza os pacientes exibidos -->
+            {% for patient in Patients %}
+
+            <div id= '{{patient.id}}' class="data">
+                <p><b>Nome</b><span>{{patient.name}}</span></p>
+                <p><b>Temperatura corporal</b><span>{{patient.TC}}°</span></p>
+                <p><b>Frequência resporatória</b><span>{{patient.FR}} mov/min</span></p>
+                <p><b>Oxigenação do sangue</b><span>{{patient.OS}}%</span></p>
+                <p><b>Pressão arterial</b><span>{{patient.PA}}mmHg</span></p>
+                <p><b>Frequência cardíaca</b><span>{{patient.FC}} bat/min</span></p>
+                <p><b>Status</b>
+                    <span>
+                    <!-- If para formatação do texto -->
+                    {% if patient.state == True %}  
+                        Estado grave 
+                    {% else %}
+                        Normal 
+                    {% endif %}
+                </span></p>
+            </div>
+
+            <!-- Fim do loop -->
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+
+        //Função responsável por manipular o aparecimento das informações
+        $(document).ready(function(){
+            $("#name").on('change', function(){
+                $(".data").hide();
+                $("#" + $(this).val()).fadeIn(700)
+            }).change();
+        });
+        
+    </script>
+
+</body>
+</html>
